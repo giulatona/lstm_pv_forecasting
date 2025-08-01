@@ -16,29 +16,46 @@ eval:
   plot_dir: results_plot
   seasonality: 24
 dataset:
-  data_filename: EUPVGIS_sceaux_2006-2016.csv
+  data_filename: sias_palermo_radiance.csv
   preprocess:
     split_method: datetimes
     split_dates:
-    - 01/01/2013
-    - 01/01/2014
+    - 01/01/2007
+    - 01/01/2008
     num_fourier_terms: 1
-    discard_test_year_not_full: true
   parameters:
-    dataset_type: pvgis
-    rename_columns:
-      G(i): radiance
-      T2m: temperature
+    dataset_type: sias
 train:
   model:
-    name: Naive
+    name: NARX
     label_columns:
     - radiance
     past_exogenous_columns: null
     future_exogenous_columns: null
     model_params:
+      units:
+      - 230
+      delay: 24
       out_steps: 24
+      num_features: 1
       exogenous: true
+      one_shot_steps: 1
+      open_loop_training_mode: false
+      activation: relu
+      kernel_initializer: he_uniform
+      bias_initializer: zeros
+      kernel_regularizer:
+        module: keras.regularizers
+        class_name: L1L2
+        config: null
+        l1: 0.0002528173745066642
+        l2: 0.04569330115369972
+      bias_regularizer:
+        module: keras.regularizers
+        class_name: L1L2
+        config: null
+        l1: 0.028633357008182904
+        l2: 0.027548517918351292
   next_period_stats:
     next_period_stats:
       use_next_period_stats: false
@@ -55,7 +72,7 @@ train:
   optimizer_params:
     learning_rate:
       name: ExponentialDecay
-      initial_learning_rate: 0.0085
-      decay_steps: 86
-      decay_rate: 0.9
+      initial_learning_rate: 0.006857977968042861
+      decay_steps: 120
+      decay_rate: 0.9044691350330755
       staircase: false
