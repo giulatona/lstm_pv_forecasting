@@ -31,38 +31,26 @@ dataset:
       T2m: temperature
 train:
   model:
-    name: Lstm
+    name: NARX
     label_columns:
     - radiance
-    past_exogenous_columns:
-    - temperature
+    past_exogenous_columns: null
     future_exogenous_columns: null
     model_params:
-      lstm_units:
-      - 136
-      - 136
-      dense_units:
-      - 212
-      num_features: 1
-      dropout: 1.0809546084968455e-05
+      units:
+      - 172
+      - 79
+      delay: 24
       out_steps: 24
-      output_activation_function: linear
-      output_kernel_initializer: glorot_uniform
-      dense_activation: relu
-      dense_kernel_initializer: he_uniform
-      dense_bias_initializer: zeros
-      dense_kernel_regularizer:
-        module: keras.regularizers
-        class_name: L1L2
-        config:
-          l1: 0.00046440678987508255
-          l2: 0.08162194306563088
-      dense_bias_regularizer:
-        module: keras.regularizers
-        class_name: L1L2
-        config:
-          l1: 0.013827531919205617
-          l2: 0.09634488694025295
+      num_features: 1
+      exogenous: true
+      one_shot_steps: 1
+      open_loop_training_mode: true
+      activation: relu
+      kernel_initializer: he_uniform
+      bias_initializer: zeros
+      kernel_regularizer: null
+      bias_regularizer: null
   next_period_stats:
     next_period_stats:
       use_next_period_stats: false
@@ -79,7 +67,7 @@ train:
   optimizer_params:
     learning_rate:
       name: ExponentialDecay
-      initial_learning_rate: 0.006857977968042861
+      initial_learning_rate: 0.0004882071614406804
       decay_steps: 120
-      decay_rate: 0.9110063547358718
+      decay_rate: 0.9689413359768123
       staircase: false
