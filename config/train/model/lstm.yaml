@@ -13,7 +13,6 @@ model_params:
   - 74
   - 74
   num_features: 1
-  use_bidirectional: false
   dropout: 4.965909679695829e-07
   out_steps: 24
   output_activation_function: linear

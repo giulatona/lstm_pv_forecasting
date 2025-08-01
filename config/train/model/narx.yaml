@@ -5,25 +5,16 @@ past_exogenous_columns: null
 future_exogenous_columns: null
 model_params:
   units: 
-    - 230
+    - 172
+    - 79
   delay: 24
   out_steps: 24
   num_features: 1
   exogenous: true
   one_shot_steps: 1
-  open_loop_training_mode: false
+  open_loop_training_mode: true
   activation: relu
   kernel_initializer: he_uniform
   bias_initializer: zeros
-  kernel_regularizer: 
-    module: keras.regularizers
-    class_name: L1L2
-    config:
-    l1: 0.0002528173745066642
-    l2: 0.04569330115369972
-  bias_regularizer:
-    module: keras.regularizers
-    class_name: L1L2
-    config:
-    l1: 0.028633357008182904
-    l2: 0.027548517918351292
+  kernel_regularizer: null
+  bias_regularizer: null

@@ -116,15 +116,15 @@ stages:
             future_exogenous_columns:
             model_params:
               lstm_units:
-              - 139
+              - 34
+              - 34
               dense_units:
-              - 124
+              - 223
+              - 223
               intermediate_units:
-              - 128
-              - 128
+              - 115
               num_features: 1
-              use_bidirectional: true
-              dropout: 0.06613368821827204
+              dropout: 0.0030943
               out_steps: 24
               output_activation_function: linear
               output_kernel_initializer: glorot_uniform
@@ -151,24 +151,24 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.008483013102792751
+              initial_learning_rate: 0.0074771
               decay_steps: 10
-              decay_rate: 0.9654480849324952
+              decay_rate: 0.97621
               staircase: false
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 1c204a69639acc9bba498dee2304944a
+      md5: 2e585ac6a2aeaba732fd7254721ef948
       size: 486
     - path: dvclive/plots/metrics
       hash: md5
-      md5: d133fe12246af6d8da762e8ef37ef16b.dir
-      size: 9159
+      md5: f2982d22dca3f7ac9a542101a57f37f6.dir
+      size: 9171
       nfiles: 10
     - path: trained_models//model.keras
       hash: md5
-      md5: 74d0fd328c1892f0b80386f74721b319
-      size: 6062594
+      md5: 516c70977387610892b53ec5c78995bb
+      size: 1509446
   eval:
     cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
     deps:
@@ -203,8 +203,8 @@ stages:
       nfiles: 31
     - path: trained_models//model.keras
       hash: md5
-      md5: 74d0fd328c1892f0b80386f74721b319
-      size: 6062594
+      md5: 516c70977387610892b53ec5c78995bb
+      size: 1509446
     params:
       params.yaml:
         base:
@@ -239,15 +239,15 @@ stages:
             future_exogenous_columns:
             model_params:
               lstm_units:
-              - 139
+              - 34
+              - 34
               dense_units:
-              - 124
+              - 223
+              - 223
               intermediate_units:
-              - 128
-              - 128
+              - 115
               num_features: 1
-              use_bidirectional: true
-              dropout: 0.06613368821827204
+              dropout: 0.0030943
               out_steps: 24
               output_activation_function: linear
               output_kernel_initializer: glorot_uniform
@@ -274,27 +274,27 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.008483013102792751
+              initial_learning_rate: 0.0074771
               decay_steps: 10
-              decay_rate: 0.9654480849324952
+              decay_rate: 0.97621
               staircase: false
     outs:
     - path: data//prediction_results.pkl
       hash: md5
-      md5: a0a252df14b3fdd820e6cd666083087a
+      md5: dc4b737cf2625e7eb8f069f557a49642
       size: 175368
     - path: results_plot/daily_metrics.csv
       hash: md5
-      md5: 74a9d9057819e3d54cc9d80f6ea5a28d
-      size: 40571
+      md5: 83ad1094c1462f76776a05a9db0c5997
+      size: 40562
     - path: results_plot/metrics.json
       hash: md5
-      md5: cfad371a9c42493445ba29540f61db01
+      md5: bf60b2e7d5e0ad399d131acba3f09cc1
       size: 332
     - path: results_plot/plots/images
       hash: md5
-      md5: 22fa62a0f5e6f9043b0f4f90ac4a9b07.dir
-      size: 87327
+      md5: b1bc623d77c15930f38ff07cef7d7e65.dir
+      size: 87776
       nfiles: 1
   calc_daily_stats:
     cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py 

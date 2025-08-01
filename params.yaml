@@ -39,15 +39,15 @@ train:
     future_exogenous_columns: null
     model_params:
       lstm_units:
-      - 139
+      - 34
+      - 34
       dense_units:
-      - 124
+      - 223
+      - 223
       intermediate_units:
-      - 128
-      - 128
+      - 115
       num_features: 1
-      use_bidirectional: true
-      dropout: 0.06613368821827204
+      dropout: 0.0030943
       out_steps: 24
       output_activation_function: linear
       output_kernel_initializer: glorot_uniform
@@ -74,7 +74,7 @@ train:
   optimizer_params:
     learning_rate:
       name: ExponentialDecay
-      initial_learning_rate: 0.008483013102792751
+      initial_learning_rate: 0.0074771
       decay_steps: 10
-      decay_rate: 0.9654480849324952
+      decay_rate: 0.97621
       staircase: false
