@@ -108,26 +108,14 @@ stages:
               T2m: temperature
         train:
           model:
-            name: NARX
+            name: Naive
             label_columns:
             - radiance
             past_exogenous_columns:
             future_exogenous_columns:
             model_params:
-              units:
-              - 172
-              - 79
-              delay: 24
               out_steps: 24
-              num_features: 1
               exogenous: true
-              one_shot_steps: 1
-              open_loop_training_mode: true
-              activation: relu
-              kernel_initializer: he_uniform
-              bias_initializer: zeros
-              kernel_regularizer:
-              bias_regularizer:
           next_period_stats:
             next_period_stats:
               use_next_period_stats: false
@@ -144,24 +132,24 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.0004882071614406804
-              decay_steps: 120
-              decay_rate: 0.9689413359768123
+              initial_learning_rate: 0.0085
+              decay_steps: 86
+              decay_rate: 0.9
               staircase: false
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 484ed35c590d49d840fff2df568ab763
-      size: 483
+      md5: 3110d6dc9e50617c7fcd38147b141cc5
+      size: 480
     - path: dvclive/plots/metrics
       hash: md5
-      md5: de716e657390b7455067b42f586ecbb9.dir
-      size: 9136
+      md5: 00a7e460b7fd4d497d7050bc85c4a5a8.dir
+      size: 372
       nfiles: 10
     - path: trained_models//model.keras
       hash: md5
-      md5: 61d0006b3577a0b4175df4eeb7d130d2
-      size: 456291
+      md5: 58e7ca4c287470b35519d06c15fa98a3
+      size: 8667
   eval:
     cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
     deps:
@@ -196,8 +184,8 @@ stages:
       nfiles: 31
     - path: trained_models//model.keras
       hash: md5
-      md5: 61d0006b3577a0b4175df4eeb7d130d2
-      size: 456291
+      md5: 58e7ca4c287470b35519d06c15fa98a3
+      size: 8667
     params:
       params.yaml:
         base:
@@ -224,26 +212,14 @@ stages:
           seasonality: 24
         train:
           model:
-            name: NARX
+            name: Naive
             label_columns:
             - radiance
             past_exogenous_columns:
             future_exogenous_columns:
             model_params:
-              units:
-              - 172
-              - 79
-              delay: 24
               out_steps: 24
-              num_features: 1
               exogenous: true
-              one_shot_steps: 1
-              open_loop_training_mode: true
-              activation: relu
-              kernel_initializer: he_uniform
-              bias_initializer: zeros
-              kernel_regularizer:
-              bias_regularizer:
           next_period_stats:
             next_period_stats:
               use_next_period_stats: false
@@ -260,27 +236,27 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.0004882071614406804
-              decay_steps: 120
-              decay_rate: 0.9689413359768123
+              initial_learning_rate: 0.0085
+              decay_steps: 86
+              decay_rate: 0.9
               staircase: false
     outs:
     - path: data//prediction_results.pkl
       hash: md5
-      md5: 55fbc54d8bb89000ca74fa7f7c6b0d48
+      md5: e7b4b53455132de01879d1961141397f
       size: 175848
     - path: results_plot/daily_metrics.csv
       hash: md5
-      md5: 41a3ab51f2d12a4de3db2bb8e8088e3f
-      size: 40451
+      md5: 207054087c00fdff97dee5fb21f979eb
+      size: 40692
     - path: results_plot/metrics.json
       hash: md5
-      md5: 4ae047d4137a1c41d1e245e292aed8a5
-      size: 332
+      md5: 385294ecd76f30d1910debd586870e8f
+      size: 331
     - path: results_plot/plots/images
       hash: md5
-      md5: 12d3cb7c142775f3a188f78164e231cb.dir
-      size: 73059
+      md5: d5dc969f9471c908b58bdca2fb52dab0.dir
+      size: 65700
       nfiles: 1
   calc_daily_stats:
     cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py 

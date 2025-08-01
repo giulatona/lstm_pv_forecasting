@@ -1,5 +1,5 @@
 defaults:
-  - model: narx
+  - model: naive
   - next_period_stats: next_period_stats
   - optional model_next_period_stats: ${train/model}
 
@@ -17,9 +17,9 @@ optimizer_params:
   #learning_rate: 1.0e-4
   learning_rate:
     name: ExponentialDecay
-    initial_learning_rate: 0.0004882071614406804
-    decay_steps: 120
-    decay_rate: 0.9689413359768123
+    initial_learning_rate: 8.5e-3
+    decay_steps: 86
+    decay_rate: 0.9
     staircase: false
   # learning_rate:
   #   name: CosineDecay
