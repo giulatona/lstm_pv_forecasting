@@ -39,12 +39,12 @@ train:
     future_exogenous_columns: null
     model_params:
       lstm_units:
-      - 16
+      - 136
+      - 136
       dense_units:
-      - 168
+      - 212
       num_features: 1
-      use_bidirectional: true
-      dropout: 1.763516190129362e-07
+      dropout: 1.0809546084968455e-05
       out_steps: 24
       output_activation_function: linear
       output_kernel_initializer: glorot_uniform
@@ -55,14 +55,14 @@ train:
         module: keras.regularizers
         class_name: L1L2
         config:
-          l1: 0.007701180752808035
-          l2: 0.09101248057486648
+          l1: 0.00046440678987508255
+          l2: 0.08162194306563088
       dense_bias_regularizer:
         module: keras.regularizers
         class_name: L1L2
         config:
-          l1: 0.018652483037886646
-          l2: 0.021403215111720178
+          l1: 0.013827531919205617
+          l2: 0.09634488694025295
   next_period_stats:
     next_period_stats:
       use_next_period_stats: false
@@ -79,7 +79,7 @@ train:
   optimizer_params:
     learning_rate:
       name: ExponentialDecay
-      initial_learning_rate: 0.002952384903462967
+      initial_learning_rate: 0.006857977968042861
       decay_steps: 120
-      decay_rate: 0.9383768365181983
+      decay_rate: 0.9110063547358718
       staircase: false

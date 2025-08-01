@@ -17,9 +17,9 @@ optimizer_params:
   #learning_rate: 1.0e-4
   learning_rate:
     name: ExponentialDecay
-    initial_learning_rate: 0.002952384903462967
+    initial_learning_rate: 0.006857977968042861
     decay_steps: 120
-    decay_rate: 0.9383768365181983
+    decay_rate: 0.9110063547358718
     staircase: false
   # learning_rate:
   #   name: CosineDecay
