@@ -115,7 +115,6 @@ stages:
               - 230
               - 230
               num_features: 1
-              use_bidirectional: true
               dropout: 0.002282
               out_steps: 24
               output_activation_function: linear
@@ -150,17 +149,17 @@ stages:
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: cf8d13e0955389b3f327903843a2ea2f
-      size: 488
+      md5: 23946dfc5e7e6f19b40d7d540d076a63
+      size: 487
     - path: dvclive/plots/metrics
       hash: md5
-      md5: 1fa47f0751f5ee97c0c2830f4c55475f.dir
-      size: 9222
+      md5: 324b3050f4b972f8d28f509981b89330.dir
+      size: 9217
       nfiles: 10
     - path: trained_models//model.keras
       hash: md5
-      md5: 5c5ee071f27e02b35157685a96cfb384
-      size: 6113472
+      md5: c7f113a54f4f301a70fb9b0ccdac3f27
+      size: 3418289
   eval:
     cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
     deps:
@@ -195,8 +194,8 @@ stages:
       nfiles: 31
     - path: trained_models//model.keras
       hash: md5
-      md5: 5c5ee071f27e02b35157685a96cfb384
-      size: 6113472
+      md5: c7f113a54f4f301a70fb9b0ccdac3f27
+      size: 3418289
     params:
       params.yaml:
         base:
@@ -234,7 +233,6 @@ stages:
               - 230
               - 230
               num_features: 1
-              use_bidirectional: true
               dropout: 0.002282
               out_steps: 24
               output_activation_function: linear
@@ -269,20 +267,20 @@ stages:
     outs:
     - path: data//prediction_results.pkl
       hash: md5
-      md5: 1c4505b7408249029212904646ca0c9f
+      md5: b57ee1c72b928415ea3b9d2e9b8dfed3
       size: 175853
     - path: results_plot/daily_metrics.csv
       hash: md5
-      md5: f2eeccae9cffdc2ed2a2d112879a29f7
-      size: 40804
+      md5: 1ee0c034a05af680880b78584e28dd6e
+      size: 40850
     - path: results_plot/metrics.json
       hash: md5
-      md5: 78128938bc406abe6dc072ae9f89ce75
-      size: 333
+      md5: 5bfea701027c177818c84a0276153504
+      size: 330
     - path: results_plot/plots/images
       hash: md5
-      md5: db9be13e3a6df656836d6c684f1f588f.dir
-      size: 73214
+      md5: cca948f6ce6341a257368ce4091ea548.dir
+      size: 72052
       nfiles: 1
   calc_daily_stats:
     cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py 

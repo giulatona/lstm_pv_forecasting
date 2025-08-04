@@ -42,7 +42,6 @@ train:
       - 230
       - 230
       num_features: 1
-      use_bidirectional: true
       dropout: 0.002282
       out_steps: 24
       output_activation_function: linear
