@@ -70,8 +70,8 @@ stages:
       size: 9836
     - path: src/lstm_pv_forecasting/model/
       hash: md5
-      md5: 66917c07b696b2aa35186d4c8ef97048.dir
-      size: 161626
+      md5: c7900adf61608fb36f04c4874a0e3155.dir
+      size: 161686
       nfiles: 26
     - path: src/lstm_pv_forecasting/stages/train.py
       hash: md5
@@ -79,7 +79,7 @@ stages:
       size: 17203
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 1d9940cf3abbcaaa21ae9cebe1b56fdd.dir
+      md5: 27e0d19be81872277f6e0e549763a389.dir
       size: 124501
       nfiles: 31
     params:
@@ -100,42 +100,40 @@ stages:
             dataset_type: sias
         train:
           model:
-            name: NARX
+            name: DeepNextDayStat
             label_columns:
             - radiance
             past_exogenous_columns:
+            - temperature
             future_exogenous_columns:
             model_params:
-              units:
+              lstm_units:
+              - 117
+              dense_units:
+              - 34
+              intermediate_units:
               - 230
-              delay: 24
-              out_steps: 24
+              - 230
               num_features: 1
-              exogenous: true
-              one_shot_steps: 1
-              open_loop_training_mode: false
-              activation: relu
-              kernel_initializer: he_uniform
-              bias_initializer: zeros
-              kernel_regularizer:
-                module: keras.regularizers
-                class_name: L1L2
-                config:
-                l1: 0.0002528173745066642
-                l2: 0.04569330115369972
-              bias_regularizer:
-                module: keras.regularizers
-                class_name: L1L2
-                config:
-                l1: 0.028633357008182904
-                l2: 0.027548517918351292
+              use_bidirectional: true
+              dropout: 0.002282
+              out_steps: 24
+              output_activation_function: linear
+              output_kernel_initializer: glorot_uniform
+              dense_activation: relu
+              dense_kernel_initializer: he_uniform
+              dense_bias_initializer: zeros
+              dense_kernel_regularizer:
+              dense_bias_regularizer:
+              intermediate_kernel_regularizer:
+              intermediate_bias_regularizer:
           next_period_stats:
             next_period_stats:
-              use_next_period_stats: false
+              use_next_period_stats: true
           batch_size: 512
           output_window_size: 24
           input_window_size: 24
-          window_shift: 1
+          window_shift: 24
           shuffle: true
           shuffle_buffer_size: 44000
           epochs: 40
@@ -145,24 +143,24 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.006857977968042861
-              decay_steps: 120
-              decay_rate: 0.9044691350330755
+              initial_learning_rate: 0.005244
+              decay_steps: 10
+              decay_rate: 0.955061
               staircase: false
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 1f3ab913211d4116e8506fe2660f9885
-      size: 486
+      md5: cf8d13e0955389b3f327903843a2ea2f
+      size: 488
     - path: dvclive/plots/metrics
       hash: md5
-      md5: a6d6d897908728f1940d0eec8cefbca0.dir
-      size: 9169
+      md5: 1fa47f0751f5ee97c0c2830f4c55475f.dir
+      size: 9222
       nfiles: 10
     - path: trained_models//model.keras
       hash: md5
-      md5: 5eff9292ea5270e8c40d3f73d626187a
-      size: 377305
+      md5: 5c5ee071f27e02b35157685a96cfb384
+      size: 6113472
   eval:
     cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
     deps:
@@ -192,13 +190,13 @@ stages:
       size: 10711
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 1d9940cf3abbcaaa21ae9cebe1b56fdd.dir
+      md5: 27e0d19be81872277f6e0e549763a389.dir
       size: 124501
       nfiles: 31
     - path: trained_models//model.keras
       hash: md5
-      md5: 5eff9292ea5270e8c40d3f73d626187a
-      size: 377305
+      md5: 5c5ee071f27e02b35157685a96cfb384
+      size: 6113472
     params:
       params.yaml:
         base:
@@ -221,42 +219,40 @@ stages:
           seasonality: 24
         train:
           model:
-            name: NARX
+            name: DeepNextDayStat
             label_columns:
             - radiance
             past_exogenous_columns:
+            - temperature
             future_exogenous_columns:
             model_params:
-              units:
+              lstm_units:
+              - 117
+              dense_units:
+              - 34
+              intermediate_units:
               - 230
-              delay: 24
-              out_steps: 24
+              - 230
               num_features: 1
-              exogenous: true
-              one_shot_steps: 1
-              open_loop_training_mode: false
-              activation: relu
-              kernel_initializer: he_uniform
-              bias_initializer: zeros
-              kernel_regularizer:
-                module: keras.regularizers
-                class_name: L1L2
-                config:
-                l1: 0.0002528173745066642
-                l2: 0.04569330115369972
-              bias_regularizer:
-                module: keras.regularizers
-                class_name: L1L2
-                config:
-                l1: 0.028633357008182904
-                l2: 0.027548517918351292
+              use_bidirectional: true
+              dropout: 0.002282
+              out_steps: 24
+              output_activation_function: linear
+              output_kernel_initializer: glorot_uniform
+              dense_activation: relu
+              dense_kernel_initializer: he_uniform
+              dense_bias_initializer: zeros
+              dense_kernel_regularizer:
+              dense_bias_regularizer:
+              intermediate_kernel_regularizer:
+              intermediate_bias_regularizer:
           next_period_stats:
             next_period_stats:
-              use_next_period_stats: false
+              use_next_period_stats: true
           batch_size: 512
           output_window_size: 24
           input_window_size: 24
-          window_shift: 1
+          window_shift: 24
           shuffle: true
           shuffle_buffer_size: 44000
           epochs: 40
@@ -266,27 +262,27 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.006857977968042861
-              decay_steps: 120
-              decay_rate: 0.9044691350330755
+              initial_learning_rate: 0.005244
+              decay_steps: 10
+              decay_rate: 0.955061
               staircase: false
     outs:
     - path: data//prediction_results.pkl
       hash: md5
-      md5: a6ebda399cc4a842abe752fdb5590ccf
-      size: 176333
+      md5: 1c4505b7408249029212904646ca0c9f
+      size: 175853
     - path: results_plot/daily_metrics.csv
       hash: md5
-      md5: 0f4770099606fb27f27d73e35adb39f4
-      size: 40763
+      md5: f2eeccae9cffdc2ed2a2d112879a29f7
+      size: 40804
     - path: results_plot/metrics.json
       hash: md5
-      md5: cb45dd7a83529e0b7d482d0a1a306e0e
-      size: 329
+      md5: 78128938bc406abe6dc072ae9f89ce75
+      size: 333
     - path: results_plot/plots/images
       hash: md5
-      md5: 8d9a82cfa872903fc42a180c9b8736c4.dir
-      size: 65446
+      md5: db9be13e3a6df656836d6c684f1f588f.dir
+      size: 73214
       nfiles: 1
   calc_daily_stats:
     cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py 
@@ -302,7 +298,7 @@ stages:
       size: 5780
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 1d9940cf3abbcaaa21ae9cebe1b56fdd.dir
+      md5: 27e0d19be81872277f6e0e549763a389.dir
       size: 124501
       nfiles: 31
     params:
