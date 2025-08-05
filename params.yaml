@@ -27,39 +27,14 @@ dataset:
     dataset_type: sias
 train:
   model:
-    name: Lstm
+    name: Naive
     label_columns:
     - radiance
-    past_exogenous_columns:
-    - temperature
+    past_exogenous_columns: null
     future_exogenous_columns: null
     model_params:
-      lstm_units:
-      - 95
-      - 95
-      dense_units:
-      - 193
-      num_features: 1
-      use_bidirectional: true
-      dropout: 2.4682339393577883e-05
       out_steps: 24
-      output_activation_function: linear
-      output_kernel_initializer: glorot_uniform
-      dense_activation: relu
-      dense_kernel_initializer: he_uniform
-      dense_bias_initializer: zeros
-      dense_kernel_regularizer:
-        module: keras.regularizers
-        class_name: L1L2
-        config:
-          l1: 0.030661006609294352
-          l2: 0.022661268066482155
-      dense_bias_regularizer:
-        module: keras.regularizers
-        class_name: L1L2
-        config:
-          l1: 0.023538661488837667
-          l2: 0.06555315893009636
+      exogenous: true
   next_period_stats:
     next_period_stats:
       use_next_period_stats: false
@@ -76,7 +51,7 @@ train:
   optimizer_params:
     learning_rate:
       name: ExponentialDecay
-      initial_learning_rate: 8.076899252968982e-05
+      initial_learning_rate: 0.0085
       decay_steps: 86
-      decay_rate: 0.9557218699916048
+      decay_rate: 0.9
       staircase: false

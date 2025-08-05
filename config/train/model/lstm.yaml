@@ -7,13 +7,13 @@ future_exogenous_columns: null
 
 model_params:
   lstm_units:
-  - 95
-  - 95
+  - 256
+  - 32
   dense_units:
-  - 193
+  - 256
+  - 32
   num_features: 1
-  use_bidirectional: true
-  dropout: 2.4682339393577883e-05
+  dropout: 0.0399
   out_steps: 24
   output_activation_function: linear
   output_kernel_initializer: glorot_uniform
@@ -22,13 +22,7 @@ model_params:
   dense_bias_initializer: zeros
   dense_kernel_regularizer: 
     module: keras.regularizers
-    class_name: L1L2
+    class_name: L1
     config:
-      l1: 0.030661006609294352
-      l2: 0.022661268066482155
-  dense_bias_regularizer:
-    module: keras.regularizers
-    class_name: L1L2
-    config:
-      l1:  0.023538661488837667
-      l2: 0.06555315893009636
+      l1: 0.01
+  dense_bias_regularizer: null
