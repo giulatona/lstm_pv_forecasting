@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lstm_pv_forecasting"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
   { name="Giuseppe La Tona", email="giuseppe.latona@cnr.it" },
 ]

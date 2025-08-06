@@ -15,7 +15,7 @@ experiments:
     commit: "0f97e07"
 
   - name: "LSTM-ED-pvgis"
-    3a1de27: "8353ec764ddbe84d0234c00895161d4cce825b3e"  
+    commit: "3a1de27"  
       
   - name: "NARX-pvgis"
     commit: "be958ab"
