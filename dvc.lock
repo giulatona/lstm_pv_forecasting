@@ -4,10 +4,10 @@ stages:
     cmd: python src/lstm_pv_forecasting/stages/preprocess.py 
       --config=params.yaml
     deps:
-    - path: data//sias_palermo_radiance.csv
+    - path: data//EUPVGIS_sceaux_2006-2016.csv
       hash: md5
-      md5: 6d726b80329367e9faeef3a535a40be1
-      size: 1891697
+      md5: 17c087134a05c5f75a46d2f5546d0735
+      size: 3407872
     - path: src/lstm_pv_forecasting/stages/preprocess.py
       hash: md5
       md5: 031e4fad0b5d9794d481d0886db088c8
@@ -23,65 +23,69 @@ stages:
           model_dir: trained_models/
           random_seed: 510
         dataset:
-          data_filename: sias_palermo_radiance.csv
+          data_filename: EUPVGIS_sceaux_2006-2016.csv
           preprocess:
             split_method: datetimes
             split_dates:
-            - 01/01/2007
-            - 01/01/2008
+            - 01/01/2013
+            - 01/01/2014
             num_fourier_terms: 1
+            discard_test_year_not_full: true
           parameters:
-            dataset_type: sias
+            dataset_type: pvgis
+            rename_columns:
+              G(i): radiance
+              T2m: temperature
     outs:
     - path: data//target_scaler.pkl
       hash: md5
-      md5: dc39a5954f7986fcfbfe76ba1b842212
+      md5: a8383710e6a55942ad70a3cfaa99fae9
       size: 621
     - path: data//test.pkl
       hash: md5
-      md5: d31ff449759fb61271e1f8499587e878
-      size: 493270
+      md5: d250ab037696f50b1d11230d7af485a3
+      size: 491921
     - path: data//train.pkl
       hash: md5
-      md5: 07a113e5ede0dec7a1a0a7f01af73f9f
-      size: 2455486
+      md5: a7ac6b3fd6ba48707a216ab5fc46dec6
+      size: 3437945
     - path: data//val.pkl
       hash: md5
-      md5: fb1aca77846a64f294852022fadacfaa
-      size: 491926
+      md5: 88daef0084f900741b52fa807eb297b2
+      size: 491921
   train:
     cmd: python src/lstm_pv_forecasting/stages/train.py --config=params.yaml
     deps:
     - path: data//train.pkl
       hash: md5
-      md5: 07a113e5ede0dec7a1a0a7f01af73f9f
-      size: 2455486
+      md5: a7ac6b3fd6ba48707a216ab5fc46dec6
+      size: 3437945
     - path: data//train_daily_stats_normalized.pkl
       hash: md5
-      md5: 74e6762854cd8a818051d3fd3312cb9e
-      size: 44900
+      md5: d775e4d67752d3db0e6f744dde18fe9c
+      size: 62439
     - path: data//val.pkl
       hash: md5
-      md5: fb1aca77846a64f294852022fadacfaa
-      size: 491926
+      md5: 88daef0084f900741b52fa807eb297b2
+      size: 491921
     - path: data//val_daily_stats_normalized.pkl
       hash: md5
-      md5: e1b51f8e69f7b02ca4ff4c5fd3f3a0b1
-      size: 9836
+      md5: ed694c317b74befb2603024b06d42635
+      size: 9831
     - path: src/lstm_pv_forecasting/model/
       hash: md5
-      md5: c7900adf61608fb36f04c4874a0e3155.dir
-      size: 161686
-      nfiles: 26
+      md5: 7a7d8b229be087c17940721e77db5071.dir
+      size: 66804
+      nfiles: 10
     - path: src/lstm_pv_forecasting/stages/train.py
       hash: md5
       md5: 71d32b36c909586625002222994d82ea
       size: 17203
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 27e0d19be81872277f6e0e549763a389.dir
-      size: 124501
-      nfiles: 31
+      md5: 5a3643a8567d81a7d43fa181c2c6f79e.dir
+      size: 50429
+      nfiles: 11
     params:
       params.yaml:
         base:
@@ -89,32 +93,55 @@ stages:
           model_dir: trained_models/
           random_seed: 510
         dataset:
-          data_filename: sias_palermo_radiance.csv
+          data_filename: EUPVGIS_sceaux_2006-2016.csv
           preprocess:
             split_method: datetimes
             split_dates:
-            - 01/01/2007
-            - 01/01/2008
+            - 01/01/2013
+            - 01/01/2014
             num_fourier_terms: 1
+            discard_test_year_not_full: true
           parameters:
-            dataset_type: sias
+            dataset_type: pvgis
+            rename_columns:
+              G(i): radiance
+              T2m: temperature
         train:
           model:
-            name: Naive
+            name: DeepNextDayStat
             label_columns:
             - radiance
             past_exogenous_columns:
+            - temperature
             future_exogenous_columns:
             model_params:
+              lstm_units:
+              - 139
+              dense_units:
+              - 124
+              intermediate_units:
+              - 128
+              - 128
+              num_features: 1
+              use_bidirectional: true
+              dropout: 0.06613368821827204
               out_steps: 24
-              exogenous: true
+              output_activation_function: linear
+              output_kernel_initializer: glorot_uniform
+              dense_activation: relu
+              dense_kernel_initializer: he_uniform
+              dense_bias_initializer: zeros
+              dense_kernel_regularizer:
+              dense_bias_regularizer:
+              intermediate_kernel_regularizer:
+              intermediate_bias_regularizer:
           next_period_stats:
             next_period_stats:
-              use_next_period_stats: false
+              use_next_period_stats: true
           batch_size: 512
           output_window_size: 24
           input_window_size: 24
-          window_shift: 1
+          window_shift: 24
           shuffle: true
           shuffle_buffer_size: 44000
           epochs: 40
@@ -124,60 +151,60 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.0085
-              decay_steps: 86
-              decay_rate: 0.9
+              initial_learning_rate: 0.008483013102792751
+              decay_steps: 10
+              decay_rate: 0.9654480849324952
               staircase: false
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 024090df0d23d253dc8925d098588992
-      size: 484
+      md5: 1c204a69639acc9bba498dee2304944a
+      size: 486
     - path: dvclive/plots/metrics
       hash: md5
-      md5: 832c91e96f98abb8aac411e7ecdafa7d.dir
-      size: 375
+      md5: d133fe12246af6d8da762e8ef37ef16b.dir
+      size: 9159
       nfiles: 10
     - path: trained_models//model.keras
       hash: md5
-      md5: a354e17c18ac71d5cfa2f42e6449f9b2
-      size: 8667
+      md5: 70e680ddae4b8492f727d3f3310c20a9
+      size: 6062594
   eval:
     cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
     deps:
     - path: data//test.pkl
       hash: md5
-      md5: d31ff449759fb61271e1f8499587e878
-      size: 493270
+      md5: d250ab037696f50b1d11230d7af485a3
+      size: 491921
     - path: data//test_daily_stats_normalized.pkl
       hash: md5
-      md5: f54328c31dc0b9961d7f443bfed0a3aa
-      size: 9860
+      md5: 2641c62c35d67176d653e35a8fcf4871
+      size: 17127
     - path: data//train.pkl
       hash: md5
-      md5: 07a113e5ede0dec7a1a0a7f01af73f9f
-      size: 2455486
+      md5: a7ac6b3fd6ba48707a216ab5fc46dec6
+      size: 3437945
     - path: data//val.pkl
       hash: md5
-      md5: fb1aca77846a64f294852022fadacfaa
-      size: 491926
+      md5: 88daef0084f900741b52fa807eb297b2
+      size: 491921
     - path: data//val_daily_stats_normalized.pkl
       hash: md5
-      md5: e1b51f8e69f7b02ca4ff4c5fd3f3a0b1
-      size: 9836
+      md5: ed694c317b74befb2603024b06d42635
+      size: 9831
     - path: src/lstm_pv_forecasting/stages/eval.py
       hash: md5
       md5: 431dc0715043967adf60a7daaeea08aa
       size: 10711
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 27e0d19be81872277f6e0e549763a389.dir
-      size: 124501
-      nfiles: 31
+      md5: 5a3643a8567d81a7d43fa181c2c6f79e.dir
+      size: 50429
+      nfiles: 11
     - path: trained_models//model.keras
       hash: md5
-      md5: a354e17c18ac71d5cfa2f42e6449f9b2
-      size: 8667
+      md5: 70e680ddae4b8492f727d3f3310c20a9
+      size: 6062594
     params:
       params.yaml:
         base:
@@ -185,36 +212,59 @@ stages:
           model_dir: trained_models/
           random_seed: 510
         dataset:
-          data_filename: sias_palermo_radiance.csv
+          data_filename: EUPVGIS_sceaux_2006-2016.csv
           preprocess:
             split_method: datetimes
             split_dates:
-            - 01/01/2007
-            - 01/01/2008
+            - 01/01/2013
+            - 01/01/2014
             num_fourier_terms: 1
+            discard_test_year_not_full: true
           parameters:
-            dataset_type: sias
+            dataset_type: pvgis
+            rename_columns:
+              G(i): radiance
+              T2m: temperature
         eval:
           eval_on_validation_set: false
           plot_dir: results_plot
           seasonality: 24
         train:
           model:
-            name: Naive
+            name: DeepNextDayStat
             label_columns:
             - radiance
             past_exogenous_columns:
+            - temperature
             future_exogenous_columns:
             model_params:
+              lstm_units:
+              - 139
+              dense_units:
+              - 124
+              intermediate_units:
+              - 128
+              - 128
+              num_features: 1
+              use_bidirectional: true
+              dropout: 0.06613368821827204
               out_steps: 24
-              exogenous: true
+              output_activation_function: linear
+              output_kernel_initializer: glorot_uniform
+              dense_activation: relu
+              dense_kernel_initializer: he_uniform
+              dense_bias_initializer: zeros
+              dense_kernel_regularizer:
+              dense_bias_regularizer:
+              intermediate_kernel_regularizer:
+              intermediate_bias_regularizer:
           next_period_stats:
             next_period_stats:
-              use_next_period_stats: false
+              use_next_period_stats: true
           batch_size: 512
           output_window_size: 24
           input_window_size: 24
-          window_shift: 1
+          window_shift: 24
           shuffle: true
           shuffle_buffer_size: 44000
           epochs: 40
@@ -224,45 +274,45 @@ stages:
           optimizer_params:
             learning_rate:
               name: ExponentialDecay
-              initial_learning_rate: 0.0085
-              decay_steps: 86
-              decay_rate: 0.9
+              initial_learning_rate: 0.008483013102792751
+              decay_steps: 10
+              decay_rate: 0.9654480849324952
               staircase: false
     outs:
     - path: data//prediction_results.pkl
       hash: md5
-      md5: f86bba03539b781e1f91173151118d47
-      size: 176333
+      md5: a0a252df14b3fdd820e6cd666083087a
+      size: 175368
     - path: results_plot/daily_metrics.csv
       hash: md5
-      md5: 9891aa75f95ef37bb684ca9271658fa7
-      size: 41176
+      md5: 74a9d9057819e3d54cc9d80f6ea5a28d
+      size: 40571
     - path: results_plot/metrics.json
       hash: md5
-      md5: eee3eede786b9491d90cdfe3c0250679
-      size: 331
+      md5: cfad371a9c42493445ba29540f61db01
+      size: 332
     - path: results_plot/plots/images
       hash: md5
-      md5: 7ef8bc594af5f6f1a11c3c91c76abd7d.dir
-      size: 58239
+      md5: 22fa62a0f5e6f9043b0f4f90ac4a9b07.dir
+      size: 87327
       nfiles: 1
   calc_daily_stats:
     cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py 
       --config=params.yaml
     deps:
-    - path: data//sias_palermo_radiance.csv
+    - path: data//EUPVGIS_sceaux_2006-2016.csv
       hash: md5
-      md5: 6d726b80329367e9faeef3a535a40be1
-      size: 1891697
+      md5: 17c087134a05c5f75a46d2f5546d0735
+      size: 3407872
     - path: src/lstm_pv_forecasting/stages/calc_daily_stats.py
       hash: md5
       md5: dc2bdd1d05a33466f148aa2a4fb4123c
       size: 5780
     - path: src/lstm_pv_forecasting/util/
       hash: md5
-      md5: 27e0d19be81872277f6e0e549763a389.dir
-      size: 124501
-      nfiles: 31
+      md5: 5a3643a8567d81a7d43fa181c2c6f79e.dir
+      size: 50429
+      nfiles: 11
     params:
       params.yaml:
         base:
@@ -279,25 +329,29 @@ stages:
           - 1
           - 1
         dataset:
-          data_filename: sias_palermo_radiance.csv
+          data_filename: EUPVGIS_sceaux_2006-2016.csv
           preprocess:
             split_method: datetimes
             split_dates:
-            - 01/01/2007
-            - 01/01/2008
+            - 01/01/2013
+            - 01/01/2014
             num_fourier_terms: 1
+            discard_test_year_not_full: true
           parameters:
-            dataset_type: sias
+            dataset_type: pvgis
+            rename_columns:
+              G(i): radiance
+              T2m: temperature
     outs:
     - path: data//test_daily_stats_normalized.pkl
       hash: md5
-      md5: f54328c31dc0b9961d7f443bfed0a3aa
-      size: 9860
+      md5: 2641c62c35d67176d653e35a8fcf4871
+      size: 17127
     - path: data//train_daily_stats_normalized.pkl
       hash: md5
-      md5: 74e6762854cd8a818051d3fd3312cb9e
-      size: 44900
+      md5: d775e4d67752d3db0e6f744dde18fe9c
+      size: 62439
     - path: data//val_daily_stats_normalized.pkl
       hash: md5
-      md5: e1b51f8e69f7b02ca4ff4c5fd3f3a0b1
-      size: 9836
+      md5: ed694c317b74befb2603024b06d42635
+      size: 9831

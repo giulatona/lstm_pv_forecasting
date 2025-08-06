@@ -6,22 +6,22 @@
 
 experiments:
   - name: "M-BiLSTM-ED-pvgis"
-    commit: "25cf57f704ef6f11a8efd5754ce7aa66407ca682"  # Git commit hash to checkout config from
+    commit: "7cf1aaf"  # Git commit hash to checkout config from
 
   - name: "M-LSTM-ED-pvgis"
-    commit: "4e2ad48b7de7599bff79b252af4b472736ddad4f"
+    commit: "e320827"
 
   - name: "BiLSTM-ED-pvgis"
-    commit: "418eb402feb22468643a63d7af37c72a81add455"
+    commit: "0f97e07"
 
   - name: "LSTM-ED-pvgis"
-    commit: "8353ec764ddbe84d0234c00895161d4cce825b3e"  
+    3a1de27: "8353ec764ddbe84d0234c00895161d4cce825b3e"  
       
   - name: "NARX-pvgis"
-    commit: "d897e917df5315599eda587d6adb9144d8e8062f"
+    commit: "be958ab"
 
   - name: "Naive-pvgis"
-    commit: "5e85c2b034582da38af2e958710f9a08a58fe26c"
+    commit: "f50f1d9"
 
   # Add more PVGIS experiments as needed
   # - name: "another-pvgis-experiment"

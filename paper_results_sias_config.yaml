@@ -6,22 +6,22 @@
 
 experiments:
   - name: "M-BiLSTM-ED-sias"
-    commit: "c0d6f58ea50e32c3135c57ae105c9d5492e5ae4c"  # Git commit hash to checkout config from
+    commit: "9d01318"  # Git commit hash to checkout config from
 
   - name: "M-LSTM-ED-sias"
-    commit: "0b0a8a9d1556af7ee9c243e5486f30f0e0b4da3a"
+    commit: "5b760c2"
 
   - name: "BiLSTM-ED-sias"
-    commit: "7a44d1df1942f6f97fefa2de1ff8682e1e6d7e5a"
+    commit: "22facf1"
 
   - name: "LSTM-ED-sias"
-    commit: "54133be276f771c5d8a4cc4a05d5c8cf1d99b211"  
+    commit: "59d772d"  
       
   - name: "NARX-sias"
-    commit: "f259366c2dc445ffd1846b98f3f8eb43fadb22ae"
+    commit: "d114e9c"
 
   - name: "Naive-sias"
-    commit: "6a820303ec0e8579fa654986e970bfdb151846ed"
+    commit: "025f4d6"
 
   # Add more SIAS experiments as needed
   # - name: "another-sias-experiment"

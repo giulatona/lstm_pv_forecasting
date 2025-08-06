@@ -1,6 +1,6 @@
 defaults:
   - _self_
-  - dataset: sias_palermo
+  - dataset: eu_pvgis
   - train/train
 
 base:
