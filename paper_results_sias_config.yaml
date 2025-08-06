@@ -1,0 +1,31 @@
+# Configuration file for reproducing SIAS dataset results published in the paper
+# This file contains experiments for the SIAS (Palermo, Italy) dataset
+# Each experiment corresponds to results presented in the paper and will 
+# checkout the config/ folder from the specified commit and run a DVC 
+# experiment with the given name and optional parameters
+
+experiments:
+  - name: "M-BiLSTM-ED-sias"
+    commit: "c0d6f58ea50e32c3135c57ae105c9d5492e5ae4c"  # Git commit hash to checkout config from
+
+  - name: "M-LSTM-ED-sias"
+    commit: "0b0a8a9d1556af7ee9c243e5486f30f0e0b4da3a"
+
+  - name: "BiLSTM-ED-sias"
+    commit: "7a44d1df1942f6f97fefa2de1ff8682e1e6d7e5a"
+
+  - name: "LSTM-ED-sias"
+    commit: "54133be276f771c5d8a4cc4a05d5c8cf1d99b211"  
+      
+  - name: "NARX-sias"
+    commit: "f259366c2dc445ffd1846b98f3f8eb43fadb22ae"
+
+  - name: "Naive-sias"
+    commit: "6a820303ec0e8579fa654986e970bfdb151846ed"
+
+  # Add more SIAS experiments as needed
+  # - name: "another-sias-experiment"
+  #   commit: "commit-hash-here"
+  #   params:
+  #     dataset: "sias_palermo"
+  #     param1: "value1"

@@ -1,0 +1,43 @@
+# Example configuration file for generate_plots.py
+
+# Periods to plot line plots
+periods_to_plot:
+  - start: "2007-01-01"
+    end: "2007-01-07"
+  - start: "2007-03-01"
+    end: "2007-03-07"
+  - start: "2007-05-01"
+    end: "2007-05-07"
+  - start: "2007-07-01"
+    end: "2007-07-07"
+  - start: "2007-09-01"
+    end: "2007-09-07"
+  - start: "2007-11-01"
+    end: "2007-11-07"
+
+# Experiments to plot
+experiments_to_plot:
+  tuning-lstm-bi-sias:
+    label: "BiLSTM-ED"
+    scatter_plot: true
+  acold-bait:
+    label: "tmp"
+    scatter_plot: true
+  fazed-torc:
+    label: "tmp2"
+    scatter_plot: true
+
+# Times to plot scatter plots
+times_to_plot:
+  - "09:00"
+  - "12:00"
+  - "15:00"
+
+# Seasons for scatter plots
+seasons:
+  summer:
+    - "2007-06-21"
+    - "2007-09-20"
+  fall:
+    - "2007-09-21"
+    - "2007-12-20"

@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Enhanced Day-Ahead Solar Irradiance Forecasting Using a Modified LSTM Encoder-Decoder: A Deep Learning vs. Hybrid Machine Learning Comparison"
+abstract: "This repository provides the code for enhanced day-ahead solar irradiance forecasting using a modified LSTM encoder-decoder model. The project compares several artificial neural network architectures for solar forecasting, introducing a modified LSTM encoder-decoder that supports static exogenous variables, enabling the use of next-day statistics from third-party weather forecasts."
+authors:
+  - given-names: "Giuseppe"
+    family-names: "La Tona"
+    affiliation: "Institute of Marine Engineering (INM), National Research Council, Palermo, Italy"
+    orcid: "https://orcid.org/0000-0002-9097-6626" 
+  - given-names: "Maria Carmela"
+    family-names: "Di Piazza"
+    affiliation: "Institute of Marine Engineering (INM), National Research Council, Palermo, Italy"
+    orcid: "https://orcid.org/0000-0002-1055-9487"  
+repository-code: "https://github.com/giulatona/lstm_pv_forecasting"  
+url: "https://github.com/giulatona/lstm_pv_forecasting"  
+license: MIT 
+keywords:
+  - "solar forecasting"
+  - "LSTM"
+  - "encoder-decoder"
+  - "machine learning"
+  - "deep learning"
+  - "renewable energy"
+  - "photovoltaic"
+  - "time series forecasting"
+  - "neural networks"
+  - "weather forecasting"
+version: "1.0.0"
+date-released: "2025-08-06"
+preferred-citation:
+  type: article
+  title: "Enhanced Day-Ahead Solar Irradiance Forecasting Using a Modified LSTM Encoder-Decoder: A Deep Learning vs. Hybrid Machine Learning Comparison"
+  authors:
+    - given-names: "Giuseppe"
+      family-names: "La Tona"
+      affiliation: "Institute of Marine Engineering (INM), National Research Council, Palermo, Italy"
+    - given-names: "Maria Carmela"
+      family-names: "Di Piazza"
+      affiliation: "Institute of Marine Engineering (INM), National Research Council, Palermo, Italy"
+  journal: "IEEE Access"
+  status: "submitted"
+  year: 2025
+  abstract: "Enhanced day-ahead solar irradiance forecasting using a modified LSTM encoder-decoder model that supports static exogenous variables, enabling the use of next-day statistics from third-party weather forecasts."

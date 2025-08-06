@@ -1,0 +1,15 @@
+data_filename: EUPVGIS_sceaux_2006-2016.csv
+
+preprocess:
+  split_method: "datetimes"
+  split_dates: 
+    - 01/01/2013
+    - 01/01/2014
+  num_fourier_terms: 1
+  discard_test_year_not_full: true
+
+parameters:
+  dataset_type: "pvgis"
+  rename_columns:
+    "G(i)": "radiance"
+    "T2m": "temperature"

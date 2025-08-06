@@ -1,0 +1,6 @@
+# @package _global_
+
+train:
+  next_period_stats:
+    next_period_stats:
+      use_next_period_stats: true

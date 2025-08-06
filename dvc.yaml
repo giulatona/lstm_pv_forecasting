@@ -1,0 +1,99 @@
+stages:
+  preprocess:
+    cmd: python src/lstm_pv_forecasting/stages/preprocess.py --config=params.yaml
+    deps:
+    - src/lstm_pv_forecasting/stages/preprocess.py
+    - src/lstm_pv_forecasting/util/load.py
+    - ${base.data_dir}/${dataset.data_filename}
+    params:
+    - base
+    - dataset
+    outs:
+    - ${base.data_dir}/train.pkl
+    - ${base.data_dir}/val.pkl
+    - ${base.data_dir}/test.pkl
+    - ${base.data_dir}/target_scaler.pkl
+
+  calc_daily_stats:
+    cmd: python src/lstm_pv_forecasting/stages/calc_daily_stats.py --config=params.yaml
+    deps:
+    - src/lstm_pv_forecasting/stages/calc_daily_stats.py
+    - src/lstm_pv_forecasting/util/
+    - ${base.data_dir}/${dataset.data_filename}
+    params:
+    - base
+    - dataset
+    - calc_daily_stats
+    outs:
+    - ${base.data_dir}/train_daily_stats_normalized.pkl
+    - ${base.data_dir}/val_daily_stats_normalized.pkl
+    - ${base.data_dir}/test_daily_stats_normalized.pkl
+
+  train:
+    cmd: python src/lstm_pv_forecasting/stages/train.py --config=params.yaml
+    deps:
+    - src/lstm_pv_forecasting/stages/train.py
+    - src/lstm_pv_forecasting/util/
+    - src/lstm_pv_forecasting/model/
+    - ${base.data_dir}/train.pkl
+    - ${base.data_dir}/val.pkl
+    - ${base.data_dir}/train_daily_stats_normalized.pkl
+    - ${base.data_dir}/val_daily_stats_normalized.pkl
+    params:
+    - base
+    - dataset
+    - train
+    outs:
+    - ${base.model_dir}/model.keras
+    - dvclive/plots/metrics
+    - dvclive/metrics.json
+
+  eval:
+    cmd: python src/lstm_pv_forecasting/stages/eval.py --config=params.yaml
+    deps:
+    - src/lstm_pv_forecasting/stages/eval.py
+    - src/lstm_pv_forecasting/util/
+    - ${base.model_dir}/model.keras
+    - ${base.data_dir}/train.pkl
+    - ${base.data_dir}/val.pkl
+    - ${base.data_dir}/test.pkl
+    - ${base.data_dir}/val_daily_stats_normalized.pkl
+    - ${base.data_dir}/test_daily_stats_normalized.pkl
+    params:
+    - base
+    - dataset
+    - train
+    - eval
+    outs:
+    - ${base.data_dir}/prediction_results.pkl
+    - ${eval.plot_dir}/plots/images
+    - ${eval.plot_dir}/metrics.json
+    - ${eval.plot_dir}/daily_metrics.csv
+#    plots:
+#    - ${eval.plot_dir}/predictions.png
+        #cache: false
+    # metrics:
+    # - metrics.json:
+    #     cache: false
+
+metrics:
+- dvclive/metrics.json
+- ${eval.plot_dir}/metrics.json
+plots:
+- day_number vs nrmse:
+    template: simple
+    x: day_number
+    y:
+      ${eval.plot_dir}/daily_metrics.csv: nrmse
+- train loss vs validation loss:
+    template: simple
+    x: step
+    y:
+      dvclive/plots/metrics/train/loss.tsv: loss
+      dvclive/plots/metrics/eval/loss.tsv: loss
+    x_label: epoch
+
+- dvclive/plots/metrics:
+    x: step
+    x_label: epoch
+- ${eval.plot_dir}/plots/images

@@ -1,0 +1,62 @@
+
+[build-system]
+requires = ["setuptools>=64.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lstm_pv_forecasting"
+version = "1.0.0"
+authors = [
+  { name="Giuseppe La Tona", email="giuseppe.latona@cnr.it" },
+]
+description = "Forecasting of solar irradiance using a modified LSTM encoder-decoder with static exogenous variables. This repository contains the code for the paper Enhanced Day-Ahead Solar Irradiance Forecasting Using a Modified LSTM Encoder-Decoder: A Deep Learning vs. Hybrid Machine Learning Comparison, *submitted to IEEE Access*, 2025."
+readme = "readme.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+keywords = ["solar radiance", "forecasting", "LSTM", "deep learning"]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Natural Language :: English",
+    "Development Status :: 3 - Alpha",
+]
+
+dependencies = [
+    "numpy>=1.23,<2.0",
+    "pandas>=2.2,<3.0",
+    "tensorflow>=2.17,<2.18",
+    "keras>=3.4",
+    "scikit-learn>=1.5,<1.7",
+    "ray>=2.6,<3.0",
+    "sklearn-pandas>=2.2,<3.0",
+    "pyyaml>=6.0,<7.0",
+    "matplotlib>=3.7,<4.0",
+    "dvc>=3.61,<4.0",
+    "dvclive>=3.48,<4.0",
+
+]
+
+[project.urls]
+"Homepage" = "https://github.com/giulatona/lstm_pv_forecasting"
+"Bug Reports" = "https://github.com/giulatona/lstm_pv_forecasting/issues"
+"Source" = "https://github.com/giulatona/lstm_pv_forecasting"
+"Documentation" = "https://github.com/giulatona/lstm_pv_forecasting#readme"
+
+[tool.autopep8]
+ignore = ["E402"]
+
+[tool.isort]
+profile = "google"
+src_paths = ["src", "test"]
+
+[tool.coverage.run]
+source = ["lstm_pv_forecasting"]
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report=lcov:lcov.info --cov-report=term"

@@ -1,0 +1,15 @@
+/sias_palermo_radiance.csv
+/train.pkl
+/val.pkl
+/dev.pkl
+/test.pkl
+/target_scaler.pkl
+/prediction_results.pkl
+/train_daily_stats.pkl
+/val_daily_stats.pkl
+/dev_daily_stats.pkl
+/test_daily_stats.pkl
+/train_daily_stats_normalized.pkl
+/val_daily_stats_normalized.pkl
+/dev_daily_stats_normalized.pkl
+/test_daily_stats_normalized.pkl

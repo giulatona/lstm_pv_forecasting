@@ -1,0 +1,11 @@
+data_filename: sias_palermo_radiance.csv
+
+preprocess:
+  split_method: "datetimes"
+  split_dates: 
+    - 01/01/2007
+    - 01/01/2008
+  num_fourier_terms: 1
+
+parameters:
+  dataset_type: "sias"

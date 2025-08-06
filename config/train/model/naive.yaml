@@ -1,0 +1,8 @@
+name: Naive
+label_columns:
+  - radiance
+past_exogenous_columns: null
+future_exogenous_columns: null
+model_params:
+  out_steps: 24
+  exogenous: true

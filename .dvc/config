@@ -1,0 +1,9 @@
+[core]
+    remote = localstore
+[hydra]
+    enabled = True
+    config_dir = config/
+[studio]
+    offline = true
+['remote "localstore"']
+    url = ../.dvcstore

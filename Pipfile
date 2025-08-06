@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "==2.2.*"
+numpy = "==1.26.*"
+scikit-learn = "==1.5.*"
+sklearn-pandas = "==2.2.*"
+keras = "==3.4.*"
+tensorflow = {extras = ["and-cuda"], version = "==2.17.*", sys_platform = "== 'linux'"}
+pyyaml = "*"
+dvclive = "==3.48.*"
+dvc-gdrive = "*"
+ray = {extras = ["serve,tune"], version = "==2.34.*"}
+matplotlib = "==3.10.*"
+scienceplots = "==2.1.*"
+dvc = "==3.61.*"
+
+[dev-packages]
+jupyter = "==1.1.*"
+jupyterlab = "==4.4.*"
+autopep8 = "==2.3.*"
+pytest = "==8.4.*"
+lstm_pv_forecasting = {editable = true, path = "."}
+tensorboard-plugin-profile = "==2.20.*"
+pytest-cov = "==6.2.*"
+isort = "==6.0.*"
+
+[requires]
+python_version = "3.12"

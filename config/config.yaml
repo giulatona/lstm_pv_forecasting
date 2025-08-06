@@ -1,0 +1,24 @@
+defaults:
+  - _self_
+  - dataset: eu_pvgis
+  - train/train
+
+base:
+  data_dir: data/
+  model_dir: trained_models/
+  random_seed: 510
+ 
+calc_daily_stats:
+  latitude: 38
+  noise_std: 
+  - 1.5
+  - 0.1
+  noise_dataset_selection:
+  - 0
+  - 1
+  - 1
+
+eval: 
+  eval_on_validation_set: false
+  plot_dir: "results_plot"
+  seasonality: 24

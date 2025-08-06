@@ -1,0 +1,17 @@
+name: CnnLstm
+label_columns:
+  - radiance
+past_exogenous_columns: 
+  - temperature
+future_exogenous_columns: null
+
+model_params:
+  lstm_units:
+  - 48
+  dense_units:
+  - 10
+  num_features: 1
+  dropout: 0.2
+  out_steps: 24
+  num_filters: 64
+  kernel_size: 3

@@ -1,0 +1,69 @@
+# Example configuration file for generate_plots.py
+
+# Periods to plot line plots
+periods_to_plot:
+  - start: "2014-02-01"
+    end: "2014-02-07"
+  - start: "2014-03-01"
+    end: "2014-03-07"
+  - start: "2014-05-01"
+    end: "2014-05-07"
+  - start: "2014-07-01"
+    end: "2014-07-07"
+  - start: "2014-09-01"
+    end: "2014-09-07"
+  - start: "2014-11-01"
+    end: "2014-11-07"
+
+# Experiments to plot
+experiments_to_plot:
+  M-BiLSTM-ED-pvgis:
+    label: "M-BiLSTM-ED"
+    scatter_plot: true
+    highlight: true
+  M-LSTM-ED-pvgis:
+    label: "M-LSTM-ED"
+    scatter_plot: true
+    highlight: false
+  BiLSTM-ED-pvgis:
+    label: "BiLSTM-ED"
+    scatter_plot: false
+    highlight: false
+  LSTM-ED-pvgis:
+    label: "LSTM-ED"
+    scatter_plot: false
+    highlight: false
+  NARX-pvgis:
+    label: "NARX"
+    scatter_plot: false
+    highlight: false
+  Naive-pvgis:
+    label: "Naive"
+    scatter_plot: false
+    highlight: false
+
+# extern experiments to plot
+extern:
+  filename: results_pvgis_clust-narx.csv
+  date_format: "%d/%m/%Y %H:%M"
+  label: "Clust+NARX"
+  scatter_plot: true
+  highlight: true
+
+# Times to plot scatter plots
+times_to_plot:
+  - "09:00"
+  - "12:00"
+  - "15:00"
+
+# Seasons for scatter plots
+seasons:
+  summer:
+    - "2014-06-21"
+    - "2014-09-20"
+  fall:
+    - "2014-09-21"
+    - "2014-12-20"
+  year:
+    - "2014-01-01"
+    - "2014-12-31"

@@ -1,0 +1,12 @@
+PVGIS Data Attribution
+=====================
+
+The file `data/EUPVGIS_sceaux_2006-2016.csv` contains data obtained from the Photovoltaic Geographical Information System (PVGIS), provided by the European Commission, Joint Research Centre (JRC).
+
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+Source: https://re.jrc.ec.europa.eu/pvg_tools/en/
+
+Please cite as:
+European Commission, Joint Research Centre (JRC), PVGIS Photovoltaic Geographical Information System (2025). https://re.jrc.ec.europa.eu/pvg_tools/en/

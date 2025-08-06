@@ -1,0 +1,5 @@
+outs:
+- md5: 6d726b80329367e9faeef3a535a40be1
+  size: 1891697
+  hash: md5
+  path: sias_palermo_radiance.csv

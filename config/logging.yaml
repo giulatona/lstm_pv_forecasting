@@ -1,0 +1,33 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+  simple:
+    format: '{asctime} - {name} - {levelname} - {message}'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+    style: '{'
+  file:
+    format: '{levelname} {asctime} [{name}:{filename}:{funcName}:{lineno}] {message}'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+    style: '{'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    maxBytes: 10485760  # 1 MB
+    backupCount : 10
+    formatter: file
+    mode: w
+loggers:
+  lstm_pv_forecasting:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: no
+root:
+  level: INFO
+  handlers: [console, file]

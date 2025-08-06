@@ -1,0 +1,80 @@
+base:
+  data_dir: data/
+  model_dir: trained_models/
+  random_seed: 510
+calc_daily_stats:
+  latitude: 38
+  noise_std:
+  - 1.5
+  - 0.1
+  noise_dataset_selection:
+  - 0
+  - 1
+  - 1
+eval:
+  eval_on_validation_set: false
+  plot_dir: results_plot
+  seasonality: 24
+dataset:
+  data_filename: EUPVGIS_sceaux_2006-2016.csv
+  preprocess:
+    split_method: datetimes
+    split_dates:
+    - 01/01/2013
+    - 01/01/2014
+    num_fourier_terms: 1
+    discard_test_year_not_full: true
+  parameters:
+    dataset_type: pvgis
+    rename_columns:
+      G(i): radiance
+      T2m: temperature
+train:
+  model:
+    name: DeepNextDayStat
+    label_columns:
+    - radiance
+    past_exogenous_columns:
+    - temperature
+    future_exogenous_columns: null
+    model_params:
+      lstm_units:
+      - 139
+      dense_units:
+      - 124
+      intermediate_units:
+      - 128
+      - 128
+      num_features: 1
+      use_bidirectional: true
+      dropout: 0.06613368821827204
+      out_steps: 24
+      output_activation_function: linear
+      output_kernel_initializer: glorot_uniform
+      dense_activation: relu
+      dense_kernel_initializer: he_uniform
+      dense_bias_initializer: zeros
+      dense_kernel_regularizer: null
+      dense_bias_regularizer: null
+      intermediate_kernel_regularizer: null
+      intermediate_bias_regularizer: null
+  next_period_stats:
+    next_period_stats:
+      use_next_period_stats: true
+  batch_size: 512
+  output_window_size: 24
+  input_window_size: 24
+  window_shift: 24
+  shuffle: true
+  shuffle_buffer_size: 44000
+  epochs: 40
+  early_stopping: false
+  loss:
+    name: MeanSquaredError
+  optimizer_params:
+    learning_rate:
+      name: ExponentialDecay
+      initial_learning_rate: 0.008483013102792751
+      decay_steps: 10
+      decay_rate: 0.9654480849324952
+      staircase: false
